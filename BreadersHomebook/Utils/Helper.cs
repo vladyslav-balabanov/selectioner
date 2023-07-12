@@ -14,6 +14,14 @@ namespace BreadersHomebook.Services
             WriteLine("exit - exits program");
         }
 
+        public void PrintHelpForFilter()
+        {
+            WriteLine("Supported commands:");
+            WriteLine("help filter keys - prints list of filter keys");
+            WriteLine("help filter values - prints list of filter values for entered key");
+            WriteLine("exit - exits program");
+        }
+
         public void PrintHelpFilterKeys()
         {
             WriteLine("Supported keys:");
@@ -40,41 +48,57 @@ namespace BreadersHomebook.Services
                 throw new ExitException();
             }
             
+            if (key.Equals("help filter keys"))
+            {
+                PrintHelpFilterKeys();
+                PrintHelpFilterValuesForKey();
+                return;
+            }
+
+            if (key.Equals("help"))
+            {
+                WriteLine("Supported commands:");
+                WriteLine("help filter keys - prints supported keys");
+                WriteLine("exit - exits application");
+                PrintHelpFilterValuesForKey();
+                return;
+            }
+            
             Write("Values for key {0}: ",key);
                 switch (key)
                 {
                     case "variety":
-                        Write(" of culture variety. Example: variety:Gala apple tree");
+                        Write("name of culture variety. Example: variety:Gala apple tree");
                         break;
                     case "author":
-                        Write(" of culture variety. Example: author:Fankhauser");
+                        Write("author of culture variety. Example: author:Fankhauser");
                         break;
                     case "parents":
-                        Write(" of culture. Example: parents:Kidd's Orange Red apple tree,Golden Delicious apple tree");
+                        Write("parent varieties of culture. Example: parents:Kidd's Orange Red apple tree,Golden Delicious apple tree");
                         break;
                     case "minProductivity":
-                        Write(" of culture in kg per tree per season. Example: minProductivity:3.45");
+                        Write("minimum productivity of culture in kg per tree per season. Example: minProductivity:3.45");
                         break;
                     case "maxProductivity":
-                        Write(" of culture in kg per tree per season. Example: maxProductivity:257.07");
+                        Write("maximum productivity of culture in kg per tree per season. Example: maxProductivity:257.07");
                         break;
                     case "fruitCharacteristics":
-                        Write(" of culture. Example: fruitCharacteristics:Kidd's Orange Red apple tree,Golden Delicious apple tree");
+                        Write("fruit characteristics of culture. Example: fruitCharacteristics:Kidd's Orange Red apple tree,Golden Delicious apple tree");
                         break;
                     case "frostResistances":
-                        Write(" of culture. Example: frostResistances:high,medium");
+                        Write("frost resistance levels of culture. Example: frostResistances:high,medium");
                         break;
                     case "pestsResistances":
-                        Write(" of culture. Example: pestsResistances:low,medium");
+                        Write("pests resistance levels of culture. Example: pestsResistances:low,medium");
                         break;
                     case "desiasesResistances":
-                        Write(" of culture. Example: desiasesResistances:high,complete");
+                        Write("disease resistance of culture. Example: desiasesResistances:high,complete");
                         break;
                     case "fond":
-                        Write(", where varieties are kept. Example: fond:Fankhauser Apples company");
+                        Write("fond or farm, where varieties are kept. Example: fond:Fankhauser Apples company");
                         break;
                     default:
-                        Write(" are not found. Key is not supported");
+                        Write("key's values are not found. Key is not supported");
                         break;
                 }
                 WriteLine();
@@ -88,8 +112,8 @@ namespace BreadersHomebook.Services
         
         public string RequestCommandInput()
         {
-            Out.WriteLine("Please, enter command");
-            string command = In.ReadLine();
+            WriteLine("Please, enter command");
+            string command = ReadLine();
             return command;
         }
     }

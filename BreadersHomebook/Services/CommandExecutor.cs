@@ -22,6 +22,10 @@ namespace BreadersHomebook.Services
                 case "show list":
                     FilterModel filters = RequestFilters();
                     List<SelectionistsWorkModel> list = _databaseManager.GetWorksByFilter(filters);
+                    if (list.Count == 0)
+                    {
+                        WriteLine("No work with filters {0} has been found", filters.ToString());
+                    }
                     list.ForEach(work => work.Print());
                     break;
                 case "exit":
@@ -47,12 +51,12 @@ namespace BreadersHomebook.Services
             string response = ReadLine();
             FilterModel filters = new FilterModel();
 
-            response = response == null ? "" : response.ToUpper();
+            response = response == null ? "" : response.ToUpper().Trim();
 
             switch (response)
             {
                 case "Y":
-                    ConstructFilters(filters);
+                    filters = ConstructFilters(filters);
                     return filters;
                 case "N":
                     return filters;
@@ -72,6 +76,24 @@ namespace BreadersHomebook.Services
                 WriteLine("Enter filter key. To see list with selected filters enter: find");
                 string filterKey = ReadLine();
                 string key = filterKey == null ? "" : filterKey.Trim();
+
+                if (key.Equals("help"))
+                {
+                    _helper.PrintHelpForFilter();
+                    continue;
+                }
+
+                if (key.Equals("help filter keys"))
+                {
+                    _helper.PrintHelpFilterKeys();
+                    continue;
+                }
+
+                if (key.Equals("help filter values"))
+                {
+                    _helper.PrintHelpFilterValuesForKey();
+                    continue;
+                }
 
                 switch (key)
                 {
@@ -185,8 +207,15 @@ namespace BreadersHomebook.Services
 
                         foreach (var resistance in frostResistancesArr)
                         {
-                            FrostResistances frostResistance = _enumParser.ParseFrostResistances(resistance);
-                            filters.FrostResistances.Add(frostResistance);
+                            try
+                            {
+                                FrostResistances frostResistance = _enumParser.ParseFrostResistances(resistance);
+                                filters.FrostResistances.Add(frostResistance);
+                            }
+                            catch (ParsingException e)
+                            {
+                                WriteLine(e.Message);
+                            }
                         }
                         break;
                     

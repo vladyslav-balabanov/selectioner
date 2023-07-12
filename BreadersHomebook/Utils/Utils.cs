@@ -4,13 +4,18 @@ namespace BreadersHomebook.Services
     {
         public string[] SeparateStringArr(string arr)
         {
-            string[] array = arr.Split(',');
-            for (int i = 0; i < array.Length; i++)
+            if (arr.Contains(","))
             {
-                array[i] = array[i].Trim();
+                string[] array = arr.Split(',');
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array[i] = array[i].Trim();
+                }
+
+                return array;
             }
 
-            return array;
+            return new[] { arr };
         }
     }
 }

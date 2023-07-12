@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BreadersHomebook.Models
 {
@@ -14,5 +15,34 @@ namespace BreadersHomebook.Models
         public List<PestsResistances> PestsResistances { get; set; }
         public List<DesiasesResistances> DesiasesResistances { get; set; }
         public string Fond { get; set; }
+
+        public FilterModel()
+        {
+            FrostResistances = new List<FrostResistances>();
+            FruitCharacteristics = new List<FruitCharacteristics>();
+            PestsResistances = new List<PestsResistances>();
+            DesiasesResistances = new List<DesiasesResistances>();
+            ParentVarieties = new List<string>();
+            MinProductivity = 0;
+            MaxProductivity = decimal.MaxValue;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Filters: variety: {0}; author:{1}; parents:{2}; minProductivity:{3}; " +
+                                 "maxProductivity:{4}; fruitCharacteristics:{5}; frostResistances:{6}; " +
+                                 "pestsResistances:{7}; desiasesResistances:{8}; fond:{9}",
+                VarietyName,
+                Author,
+                string.Join(",", ParentVarieties),
+                MinProductivity,
+                MaxProductivity,
+                string.Join(",", FruitCharacteristics),
+                string.Join(",", FrostResistances),
+                string.Join(",", PestsResistances),
+                string.Join(",", DesiasesResistances),
+                Fond
+            );
+        }
     }
 }

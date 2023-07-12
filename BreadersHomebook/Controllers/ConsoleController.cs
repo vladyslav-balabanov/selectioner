@@ -31,7 +31,7 @@ namespace BreadersHomebook.Controllers
                 try
                 {
                     var command = _helper.RequestCommandInput();
-                    _commandExecutor.Execute(command);
+                    _commandExecutor.Execute(command.Trim());
                 }
                 catch (ExitException exit)
                 {
