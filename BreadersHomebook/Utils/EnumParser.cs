@@ -5,11 +5,6 @@ namespace BreadersHomebook.Services
 {
     public class EnumParser
     {
-        public string DiseasesResistancesKey = "diseasesResistance";
-        public string FrostResistancesKey = "frostResistance";
-        public string FruitCharacteristicsKey = "fruitCharacteristics";
-        public string PestsResistancesKey = "pestsResistance";
-
         public FruitCharacteristics ParseFruitCharacteristics(string value)
         {
             switch (value)
@@ -88,19 +83,14 @@ namespace BreadersHomebook.Services
             {
                 case "none":
                     return PestsResistances.None;
-                    break;
                 case "low":
                     return PestsResistances.Low;
-                    break;
                 case "middle":
                     return PestsResistances.Middle;
-                    break;
                 case "high":
                     return PestsResistances.High;
-                    break;
                 case "complete":
                     return PestsResistances.Complete;
-                    break;
                 default:
                     Console.WriteLine(
                         "Pests resistance {0} is not valid, to see valid pests resistances enter command: help filter values pestsResistances",

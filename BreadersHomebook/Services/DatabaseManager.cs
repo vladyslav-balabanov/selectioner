@@ -8,17 +8,17 @@ namespace BreadersHomebook.Models
     {
         private const string WorksTableName = "selectionist-works";
         private const string DataBaseName = "selectionist";
-        private readonly IMongoCollection<VarietyInfoModel> WorksTable;
+        private readonly IMongoCollection<VarietyInfoModel> _worksTable;
 
         public DatabaseManager()
         {
             var database = new MongoClient().GetDatabase(DataBaseName);
-            WorksTable = database.GetCollection<VarietyInfoModel>(WorksTableName);
+            _worksTable = database.GetCollection<VarietyInfoModel>(WorksTableName);
         }
 
         public List<VarietyInfoModel> GetAllWorks()
         {
-            return WorksTable.Find(_ => true).ToList();
+            return _worksTable.Find(_ => true).ToList();
         }
 
         public List<VarietyInfoModel> GetWorksByFilter(FilterModel filterModel)
@@ -59,35 +59,35 @@ namespace BreadersHomebook.Models
                           Builders<VarietyInfoModel>.Filter.Where(work =>
                               work.FondsWithCulture.Contains(filterModel.Fond));
 
-            return WorksTable.Find(builder).ToList();
+            return _worksTable.Find(builder).ToList();
         }
 
         public VarietyInfoModel GetWorkById(int id)
         {
-            return WorksTable.Find(work => work.Id == id).FirstOrDefault();
+            return _worksTable.Find(work => work.Id == id).FirstOrDefault();
         }
 
         public void AddWork(VarietyInfoModel work)
         {
             work.Id = GenerateId();
-            WorksTable.InsertOne(work);
+            _worksTable.InsertOne(work);
         }
 
         public void UpdateWork(VarietyInfoModel work)
         {
             var filter = Builders<VarietyInfoModel>.Filter.Eq(b => b.Id, work.Id);
-            WorksTable.ReplaceOne(filter, work);
+            _worksTable.ReplaceOne(filter, work);
         }
 
         public void DeleteWork(int id)
         {
             var filter = Builders<VarietyInfoModel>.Filter.Eq(bus => bus.Id, id);
-            WorksTable.DeleteOne(filter);
+            _worksTable.DeleteOne(filter);
         }
 
         private int GenerateId()
         {
-            var works = WorksTable.Find(_ => true).ToList();
+            var works = _worksTable.Find(_ => true).ToList();
             if (works.Any())
                 return works.Max(bus => bus.Id) + 1;
             return 1;
