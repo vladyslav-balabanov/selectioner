@@ -5,7 +5,7 @@ namespace BreadersHomebook.Services
 {
     public class EnumParser
     {
-        public string DesiasesResistancesKey = "desiasesResistance";
+        public string DiseasesResistancesKey = "diseasesResistance";
         public string FrostResistancesKey = "frostResistance";
         public string FruitCharacteristicsKey = "fruitCharacteristics";
         public string PestsResistancesKey = "pestsResistance";
@@ -60,25 +60,25 @@ namespace BreadersHomebook.Services
             }
         }
 
-        public DiseasesResistances ParseDesiasesResistances(string value)
+        public DiseaseResistances ParseDiseaseResistances(string value)
         {
             switch (value)
             {
                 case "none":
-                    return DiseasesResistances.None;
+                    return DiseaseResistances.None;
                 case "low":
-                    return DiseasesResistances.Low;
+                    return DiseaseResistances.Low;
                 case "middle":
-                    return DiseasesResistances.Middle;
+                    return DiseaseResistances.Middle;
                 case "high":
-                    return DiseasesResistances.High;
+                    return DiseaseResistances.High;
                 case "complete":
-                    return DiseasesResistances.Complete;
+                    return DiseaseResistances.Complete;
                 default:
                     Console.WriteLine(
-                        "Desiases resistances resistance {0} is not valid, to see valid desiases resistances enter command: help filter values desiasesResistances",
+                        "Disease resistances resistance {0} is not valid, to see valid disease resistances enter command: help filter values diseaseResistances",
                         value);
-                    throw new ParsingException("Could not parse DesiasesResistances " + value);
+                    throw new ParsingException("Could not parse DiseaseResistances " + value);
             }
         }
 
@@ -103,7 +103,7 @@ namespace BreadersHomebook.Services
                     break;
                 default:
                     Console.WriteLine(
-                        "Pests resistance {0} is not valid, to see valid pests resistances enter command: help filter values pestsResisnces",
+                        "Pests resistance {0} is not valid, to see valid pests resistances enter command: help filter values pestsResistances",
                         value);
                     throw new ParsingException("Could not parse PestsResistances " + value);
             }

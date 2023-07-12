@@ -7,7 +7,7 @@ namespace BreadersHomebook.Services
         public void PrintHelp()
         {
             WriteLine("Supported commands:");
-            WriteLine("show all works - prints list of all breeders' works");
+            WriteLine("show all works - prints list of all plant varieties");
             WriteLine("show list - prints list of breeder's works that match filters");
             WriteLine("help filter keys - prints list of filter keys");
             WriteLine("help filter values - prints list of filter values for entered key");
@@ -33,7 +33,7 @@ namespace BreadersHomebook.Services
             WriteLine("fruitCharacteristics");
             WriteLine("frostResistances");
             WriteLine("pestsResistances");
-            WriteLine("diseasesResistances");
+            WriteLine("diseaseResistances");
             WriteLine("fond");
         }
 
@@ -90,8 +90,8 @@ namespace BreadersHomebook.Services
                 case "pestsResistances":
                     Write("pests resistance levels of culture. Example: pestsResistances:low,medium");
                     break;
-                case "diseasesResistances":
-                    Write("disease resistance of culture. Example: diseasesResistances:high,complete");
+                case "diseaseResistances":
+                    Write("disease resistance of culture. Example: diseaseResistances:high,complete");
                     break;
                 case "fond":
                     Write("fond or farm, where varieties are kept. Example: fond:Fankhauser Apples company");

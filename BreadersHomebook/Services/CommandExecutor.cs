@@ -233,21 +233,21 @@ namespace BreadersHomebook.Services
 
                         break;
 
-                    case "diseasesResistances":
-                        WriteLine("Enter diseases resistances:");
-                        var diseasesResistances = ReadLine();
-                        diseasesResistances = diseasesResistances == null ? "" : diseasesResistances.Trim();
-                        var diseasesResistancesArr = _utils.SeparateStringArr(diseasesResistances);
-                        if (diseasesResistancesArr.Length == 0)
+                    case "diseaseResistances":
+                        WriteLine("Enter disease resistances:");
+                        var diseaseResistances = ReadLine();
+                        diseaseResistances = diseaseResistances == null ? "" : diseaseResistances.Trim();
+                        var diseaseResistancesArr = _utils.SeparateStringArr(diseaseResistances);
+                        if (diseaseResistancesArr.Length == 0)
                         {
                             WriteLine("Filter must have at list one element");
                             break;
                         }
 
-                        foreach (var resistance in diseasesResistancesArr)
+                        foreach (var resistance in diseaseResistancesArr)
                         {
-                            var pestsResistance = _enumParser.ParseDesiasesResistances(resistance);
-                            filters.DiseasesResistances.Add(pestsResistance);
+                            var desiaseResistance = _enumParser.ParseDiseaseResistances(resistance);
+                            filters.DiseaseResistances.Add(desiaseResistance);
                         }
 
                         break;

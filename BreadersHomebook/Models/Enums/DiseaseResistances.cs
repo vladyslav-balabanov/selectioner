@@ -1,6 +1,6 @@
 namespace BreadersHomebook.Models
 {
-    public enum DiseasesResistances
+    public enum DiseaseResistances
     {
         None,
         Low,

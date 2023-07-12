@@ -9,7 +9,7 @@ namespace BreadersHomebook.Models
             FrostResistances = new List<FrostResistances>();
             FruitCharacteristics = new List<FruitCharacteristics>();
             PestsResistances = new List<PestsResistances>();
-            DiseasesResistances = new List<DiseasesResistances>();
+            DiseaseResistances = new List<DiseaseResistances>();
             ParentVarieties = new List<string>();
             MinProductivity = 0;
             MaxProductivity = decimal.MaxValue;
@@ -23,14 +23,14 @@ namespace BreadersHomebook.Models
         public List<FruitCharacteristics> FruitCharacteristics { get; set; }
         public List<FrostResistances> FrostResistances { get; set; }
         public List<PestsResistances> PestsResistances { get; set; }
-        public List<DiseasesResistances> DiseasesResistances { get; set; }
+        public List<DiseaseResistances> DiseaseResistances { get; set; }
         public string Fond { get; set; }
 
         public override string ToString()
         {
             return string.Format("Filters: variety: {0}; author:{1}; parents:{2}; minProductivity:{3}; " +
                                  "maxProductivity:{4}; fruitCharacteristics:{5}; frostResistances:{6}; " +
-                                 "pestsResistances:{7}; diseasesResistances:{8}; fond:{9}",
+                                 "pestsResistances:{7}; diseaseResistances:{8}; fond:{9}",
                 VarietyName,
                 Author,
                 string.Join(",", ParentVarieties),
@@ -39,7 +39,7 @@ namespace BreadersHomebook.Models
                 string.Join(",", FruitCharacteristics),
                 string.Join(",", FrostResistances),
                 string.Join(",", PestsResistances),
-                string.Join(",", DiseasesResistances),
+                string.Join(",", DiseaseResistances),
                 Fond
             );
         }
