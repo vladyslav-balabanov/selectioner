@@ -5,9 +5,9 @@ namespace BreadersHomebook.Services
 {
     public class EnumParser
     {
-        public string FruitCharacteristicsKey = "fruitCharacteristics";
         public string DesiasesResistancesKey = "desiasesResistance";
         public string FrostResistancesKey = "frostResistance";
+        public string FruitCharacteristicsKey = "fruitCharacteristics";
         public string PestsResistancesKey = "pestsResistance";
 
         public FruitCharacteristics ParseFruitCharacteristics(string value)
@@ -59,7 +59,7 @@ namespace BreadersHomebook.Services
                     throw new ParsingException("Could not parse FrostResistances " + value);
             }
         }
-        
+
         public DiseasesResistances ParseDesiasesResistances(string value)
         {
             switch (value)

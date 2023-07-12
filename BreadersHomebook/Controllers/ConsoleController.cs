@@ -1,20 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using BreadersHomebook.Models;
 using BreadersHomebook.Services;
-using static System.Console;
 
 namespace BreadersHomebook.Controllers
 {
-    
     public class ConsoleController
     {
-        public bool IsRunning { get; set; }
-        
-        private readonly Helper _helper;
-
         private readonly CommandExecutor _commandExecutor;
+
+        private readonly Helper _helper;
 
         public ConsoleController()
         {
@@ -22,12 +14,13 @@ namespace BreadersHomebook.Controllers
             _commandExecutor = new CommandExecutor();
         }
 
+        public bool IsRunning { get; set; }
+
         public void Run()
         {
             IsRunning = true;
             _helper.PrintWelcome();
             while (IsRunning)
-            {
                 try
                 {
                     var command = _helper.RequestCommandInput();
@@ -37,7 +30,6 @@ namespace BreadersHomebook.Controllers
                 {
                     IsRunning = false;
                 }
-            }
         }
     }
 }

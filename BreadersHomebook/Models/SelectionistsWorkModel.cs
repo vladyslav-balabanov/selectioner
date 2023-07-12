@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BreadersHomebook.Models
 {
@@ -20,11 +19,10 @@ namespace BreadersHomebook.Models
         public void Print()
         {
             Console.WriteLine(
-                string.Format(
-                    "id:{0}; name:{1}; author:{2}; parents:{3}; productivity:{4}; fruitCharacteristics:{5}; frostResistance:{6}; pestsResistance:{7}; diseasesResistance:{8}; fonds:{9};",
-                    Id, NameOfCultureVariety, Author, string.Join(",", ParentVarieties), Productivity,
-                    string.Join(",", FruitCharacteristics), FrostResistance, PestsResistance, DiseasesResistance,
-                    string.Join(",", FondsWithCulture)));
+                "id:{0}; name:{1}; author:{2}; parents:{3}; productivity:{4}; fruitCharacteristics:{5}; frostResistance:{6}; pestsResistance:{7}; diseasesResistance:{8}; fonds:{9};",
+                Id, NameOfCultureVariety, Author, string.Join(",", ParentVarieties), Productivity,
+                string.Join(",", FruitCharacteristics), FrostResistance, PestsResistance, DiseasesResistance,
+                string.Join(",", FondsWithCulture));
         }
     }
 }

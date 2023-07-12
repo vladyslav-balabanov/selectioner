@@ -6,6 +6,6 @@ namespace BreadersHomebook.Models
         Low,
         Middle,
         High,
-        Complete,
+        Complete
     }
 }

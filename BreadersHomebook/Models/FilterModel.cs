@@ -1,21 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BreadersHomebook.Models
 {
     public class FilterModel
     {
-        public string VarietyName { get; set; }
-        public string Author { get; set; }
-        public List<string> ParentVarieties { get; set; }
-        public decimal MinProductivity { get; set; }
-        public decimal MaxProductivity { get; set; }
-        public List<FruitCharacteristics> FruitCharacteristics { get; set; }
-        public List<FrostResistances> FrostResistances { get; set; }
-        public List<PestsResistances> PestsResistances { get; set; }
-        public List<DiseasesResistances> DiseasesResistances { get; set; }
-        public string Fond { get; set; }
-
         public FilterModel()
         {
             FrostResistances = new List<FrostResistances>();
@@ -26,6 +14,17 @@ namespace BreadersHomebook.Models
             MinProductivity = 0;
             MaxProductivity = decimal.MaxValue;
         }
+
+        public string VarietyName { get; set; }
+        public string Author { get; set; }
+        public List<string> ParentVarieties { get; set; }
+        public decimal MinProductivity { get; set; }
+        public decimal MaxProductivity { get; set; }
+        public List<FruitCharacteristics> FruitCharacteristics { get; set; }
+        public List<FrostResistances> FrostResistances { get; set; }
+        public List<PestsResistances> PestsResistances { get; set; }
+        public List<DiseasesResistances> DiseasesResistances { get; set; }
+        public string Fond { get; set; }
 
         public override string ToString()
         {

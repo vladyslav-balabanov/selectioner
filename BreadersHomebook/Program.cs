@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Configuration;
-using BreadersHomebook.Controllers;
-using BreadersHomebook.Models;
+﻿using BreadersHomebook.Controllers;
 
 namespace BreadersHomebook
 {
@@ -9,10 +6,9 @@ namespace BreadersHomebook
     {
         public static void Main(string[] args)
         {
-            ConsoleController consoleController = new ConsoleController();
-            
+            var consoleController = new ConsoleController();
+
             consoleController.Run();
         }
     }
-
 }

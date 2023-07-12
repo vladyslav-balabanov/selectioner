@@ -6,11 +6,8 @@ namespace BreadersHomebook.Services
         {
             if (arr.Contains(","))
             {
-                string[] array = arr.Split(',');
-                for (int i = 0; i < array.Length; i++)
-                {
-                    array[i] = array[i].Trim();
-                }
+                var array = arr.Split(',');
+                for (var i = 0; i < array.Length; i++) array[i] = array[i].Trim();
 
                 return array;
             }

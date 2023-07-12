@@ -6,16 +6,16 @@ namespace BreadersHomebook.Models
 {
     public class DatabaseManager
     {
-        private readonly IMongoCollection<SelectionistsWorkModel> WorksTable;
         private const string WorksTableName = "selectionist-works";
         private const string DataBaseName = "selectionist";
+        private readonly IMongoCollection<SelectionistsWorkModel> WorksTable;
 
         public DatabaseManager()
         {
             var database = new MongoClient().GetDatabase(DataBaseName);
             WorksTable = database.GetCollection<SelectionistsWorkModel>(WorksTableName);
         }
-        
+
         public List<SelectionistsWorkModel> GetAllWorks()
         {
             return WorksTable.Find(_ => true).ToList();
@@ -24,42 +24,40 @@ namespace BreadersHomebook.Models
         public List<SelectionistsWorkModel> GetWorksByFilter(FilterModel filterModel)
         {
             var builder = Builders<SelectionistsWorkModel>.Filter.Where(work => true);
-            
-            builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => work.Productivity >= filterModel.MinProductivity);
-            builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => work.Productivity <= filterModel.MaxProductivity);
+
+            builder = builder &
+                      Builders<SelectionistsWorkModel>.Filter.Where(work =>
+                          work.Productivity >= filterModel.MinProductivity);
+            builder = builder &
+                      Builders<SelectionistsWorkModel>.Filter.Where(work =>
+                          work.Productivity <= filterModel.MaxProductivity);
 
             if (filterModel.VarietyName != null)
-            {
-                builder = builder & Builders<SelectionistsWorkModel>.Filter.Eq(work => work.NameOfCultureVariety, filterModel.VarietyName);
-            }
+                builder = builder &
+                          Builders<SelectionistsWorkModel>.Filter.Eq(work => work.NameOfCultureVariety,
+                              filterModel.VarietyName);
             if (filterModel.Author != null)
-            {
                 builder = builder & Builders<SelectionistsWorkModel>.Filter.Eq(work => work.Author, filterModel.Author);
-            }
             if (filterModel.ParentVarieties != null && filterModel.ParentVarieties.Count > 0)
-            {
-                builder = builder & Builders<SelectionistsWorkModel>.Filter.AnyIn(work => work.ParentVarieties, filterModel.ParentVarieties);
-            }
+                builder = builder &
+                          Builders<SelectionistsWorkModel>.Filter.AnyIn(work => work.ParentVarieties,
+                              filterModel.ParentVarieties);
             if (filterModel.FruitCharacteristics != null && filterModel.FruitCharacteristics.Count > 0)
-            {
-                builder = builder & Builders<SelectionistsWorkModel>.Filter.AnyIn(work => work.FruitCharacteristics, filterModel.FruitCharacteristics);
-            }
+                builder = builder & Builders<SelectionistsWorkModel>.Filter.AnyIn(work => work.FruitCharacteristics,
+                    filterModel.FruitCharacteristics);
             if (filterModel.FrostResistances != null && filterModel.FrostResistances.Count > 0)
-            {
-                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => filterModel.FrostResistances.Contains(work.FrostResistance));
-            }
+                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work =>
+                    filterModel.FrostResistances.Contains(work.FrostResistance));
             if (filterModel.PestsResistances != null && filterModel.PestsResistances.Count > 0)
-            {
-                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => filterModel.PestsResistances.Contains(work.PestsResistance));
-            }
+                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work =>
+                    filterModel.PestsResistances.Contains(work.PestsResistance));
             if (filterModel.DiseasesResistances != null && filterModel.DiseasesResistances.Count > 0)
-            {
-                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => filterModel.DiseasesResistances.Contains(work.DiseasesResistance));
-            }
+                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work =>
+                    filterModel.DiseasesResistances.Contains(work.DiseasesResistance));
             if (filterModel.Fond != null)
-            {
-                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => work.FondsWithCulture.Contains(filterModel.Fond));
-            }
+                builder = builder &
+                          Builders<SelectionistsWorkModel>.Filter.Where(work =>
+                              work.FondsWithCulture.Contains(filterModel.Fond));
 
             return WorksTable.Find(builder).ToList();
         }
@@ -91,13 +89,8 @@ namespace BreadersHomebook.Models
         {
             var works = WorksTable.Find(_ => true).ToList();
             if (works.Any())
-            {
                 return works.Max(bus => bus.Id) + 1;
-            }
-            else
-            {
-                return 1;
-            }
+            return 1;
         }
     }
 }

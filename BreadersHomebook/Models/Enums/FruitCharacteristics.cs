@@ -9,6 +9,6 @@ namespace BreadersHomebook.Models
         MonoCotyledon,
         PolyCotyledon,
         OpeningFruit,
-        NonOpeningFruit,
+        NonOpeningFruit
     }
 }

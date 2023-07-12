@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using BreadersHomebook.Models;
 using static System.Console;
@@ -7,11 +6,11 @@ namespace BreadersHomebook.Services
 {
     public class CommandExecutor
     {
-        private readonly Utils _utils = new Utils();
+        private readonly DatabaseManager _databaseManager = new DatabaseManager();
         private readonly EnumParser _enumParser = new EnumParser();
         private readonly Helper _helper = new Helper();
-        private readonly DatabaseManager _databaseManager = new DatabaseManager(); 
-        
+        private readonly Utils _utils = new Utils();
+
         public void Execute(string command)
         {
             switch (command)
@@ -20,12 +19,9 @@ namespace BreadersHomebook.Services
                     _databaseManager.GetAllWorks().ForEach(work => work.Print());
                     break;
                 case "show list":
-                    FilterModel filters = RequestFilters();
-                    List<SelectionistsWorkModel> list = _databaseManager.GetWorksByFilter(filters);
-                    if (list.Count == 0)
-                    {
-                        WriteLine("No work with filters {0} has been found", filters.ToString());
-                    }
+                    var filters = RequestFilters();
+                    var list = _databaseManager.GetWorksByFilter(filters);
+                    if (list.Count == 0) WriteLine("No work with filters {0} has been found", filters);
                     list.ForEach(work => work.Print());
                     break;
                 case "exit":
@@ -48,8 +44,8 @@ namespace BreadersHomebook.Services
         private FilterModel RequestFilters()
         {
             WriteLine("Use filters? Y/N");
-            string response = ReadLine();
-            FilterModel filters = new FilterModel();
+            var response = ReadLine();
+            var filters = new FilterModel();
 
             response = response == null ? "" : response.ToUpper().Trim();
 
@@ -70,12 +66,12 @@ namespace BreadersHomebook.Services
 
         private FilterModel ConstructFilters(FilterModel filters)
         {
-            bool isAddingFilters = true;
+            var isAddingFilters = true;
             while (isAddingFilters)
             {
                 WriteLine("Enter filter key. To see list with selected filters enter: find");
-                string filterKey = ReadLine();
-                string key = filterKey == null ? "" : filterKey.Trim();
+                var filterKey = ReadLine();
+                var key = filterKey == null ? "" : filterKey.Trim();
 
                 if (key.Equals("help"))
                 {
@@ -100,7 +96,7 @@ namespace BreadersHomebook.Services
                     case "variety":
 
                         WriteLine("Enter culture variety name:");
-                        string variety = ReadLine();
+                        var variety = ReadLine();
 
                         if (variety == null)
                         {
@@ -114,7 +110,7 @@ namespace BreadersHomebook.Services
                     case "author":
 
                         WriteLine("Enter author name:");
-                        string author = ReadLine();
+                        var author = ReadLine();
 
                         if (author == null)
                         {
@@ -128,8 +124,8 @@ namespace BreadersHomebook.Services
                     case "parents":
 
                         WriteLine("Enter variety parents");
-                        string parents = ReadLine();
-                        string[] parentsArr = _utils.SeparateStringArr(parents);
+                        var parents = ReadLine();
+                        var parentsArr = _utils.SeparateStringArr(parents);
 
                         if (parentsArr.Length == 0)
                         {
@@ -143,9 +139,9 @@ namespace BreadersHomebook.Services
                     case "minProductivity":
 
                         WriteLine("Enter minimum productivity, kg for plant in one season");
-                        string min = ReadLine();
+                        var min = ReadLine();
                         min = min ?? "0";
-                        decimal minValue = decimal.Parse(min);
+                        var minValue = decimal.Parse(min);
 
                         if (minValue < 0)
                         {
@@ -159,9 +155,9 @@ namespace BreadersHomebook.Services
                     case "maxProductivity":
 
                         WriteLine("Enter maximum productivity, kg for plant in one season");
-                        string max = ReadLine();
+                        var max = ReadLine();
                         max = max ?? decimal.MaxValue.ToString();
-                        decimal maxValue = decimal.Parse(max);
+                        var maxValue = decimal.Parse(max);
 
                         if (maxValue < 0)
                         {
@@ -175,9 +171,9 @@ namespace BreadersHomebook.Services
                     case "fruitCharacteristics":
 
                         WriteLine("Enter fruit characteristics");
-                        string characteristics = ReadLine();
+                        var characteristics = ReadLine();
                         characteristics = characteristics == null ? "" : characteristics.Trim();
-                        string[] characteristicsArr = _utils.SeparateStringArr(characteristics);
+                        var characteristicsArr = _utils.SeparateStringArr(characteristics);
                         if (characteristicsArr.Length == 0)
                         {
                             WriteLine("Filter must have at least one characteristic");
@@ -186,7 +182,7 @@ namespace BreadersHomebook.Services
 
                         foreach (var characteristic in characteristicsArr)
                         {
-                            FruitCharacteristics fruitCharacteristic =
+                            var fruitCharacteristic =
                                 _enumParser.ParseFruitCharacteristics(characteristic.Trim());
                             filters.FruitCharacteristics.Add(fruitCharacteristic);
                         }
@@ -194,11 +190,11 @@ namespace BreadersHomebook.Services
                         break;
 
                     case "frostResistances":
-                        
+
                         WriteLine("Enter frost resistances:");
-                        string frostResistances = ReadLine();
+                        var frostResistances = ReadLine();
                         frostResistances = frostResistances == null ? "" : frostResistances.Trim();
-                        string[] frostResistancesArr = _utils.SeparateStringArr(frostResistances);
+                        var frostResistancesArr = _utils.SeparateStringArr(frostResistances);
                         if (frostResistancesArr.Length == 0)
                         {
                             WriteLine("Filter must have at list one element");
@@ -206,24 +202,23 @@ namespace BreadersHomebook.Services
                         }
 
                         foreach (var resistance in frostResistancesArr)
-                        {
                             try
                             {
-                                FrostResistances frostResistance = _enumParser.ParseFrostResistances(resistance);
+                                var frostResistance = _enumParser.ParseFrostResistances(resistance);
                                 filters.FrostResistances.Add(frostResistance);
                             }
                             catch (ParsingException e)
                             {
                                 WriteLine(e.Message);
                             }
-                        }
+
                         break;
-                    
+
                     case "pestsResistances":
                         WriteLine("Enter pests resistances:");
-                        string pestsResistances = ReadLine();
+                        var pestsResistances = ReadLine();
                         pestsResistances = pestsResistances == null ? "" : pestsResistances.Trim();
-                        string[] pestsResistancesArr = _utils.SeparateStringArr(pestsResistances);
+                        var pestsResistancesArr = _utils.SeparateStringArr(pestsResistances);
                         if (pestsResistancesArr.Length == 0)
                         {
                             WriteLine("Filter must have at list one element");
@@ -232,17 +227,17 @@ namespace BreadersHomebook.Services
 
                         foreach (var resistance in pestsResistancesArr)
                         {
-                            PestsResistances pestsResistance = _enumParser.ParsePestsResistances(resistance);
+                            var pestsResistance = _enumParser.ParsePestsResistances(resistance);
                             filters.PestsResistances.Add(pestsResistance);
                         }
 
                         break;
-                    
+
                     case "diseasesResistances":
                         WriteLine("Enter diseases resistances:");
-                        string diseasesResistances = ReadLine();
+                        var diseasesResistances = ReadLine();
                         diseasesResistances = diseasesResistances == null ? "" : diseasesResistances.Trim();
-                        string[] diseasesResistancesArr = _utils.SeparateStringArr(diseasesResistances);
+                        var diseasesResistancesArr = _utils.SeparateStringArr(diseasesResistances);
                         if (diseasesResistancesArr.Length == 0)
                         {
                             WriteLine("Filter must have at list one element");
@@ -251,26 +246,26 @@ namespace BreadersHomebook.Services
 
                         foreach (var resistance in diseasesResistancesArr)
                         {
-                            DiseasesResistances pestsResistance = _enumParser.ParseDesiasesResistances(resistance);
+                            var pestsResistance = _enumParser.ParseDesiasesResistances(resistance);
                             filters.DiseasesResistances.Add(pestsResistance);
                         }
 
                         break;
-                    
+
                     case "fond":
                         WriteLine("Enter fond name: ");
-                        string fond = Console.ReadLine();
+                        var fond = ReadLine();
                         fond = fond == null ? "" : fond.Trim();
                         filters.Fond = fond;
                         break;
-                    
+
                     case "exit":
                         throw new ExitException();
-                    
+
                     case "find":
                         isAddingFilters = false;
                         break;
-                    
+
                     default:
                         WriteLine("Filter name {0} not supported.", key);
                         break;
