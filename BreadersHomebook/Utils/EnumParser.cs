@@ -60,20 +60,20 @@ namespace BreadersHomebook.Services
             }
         }
         
-        public DesiasesResistances ParseDesiasesResistances(string value)
+        public DiseasesResistances ParseDesiasesResistances(string value)
         {
             switch (value)
             {
                 case "none":
-                    return DesiasesResistances.None;
+                    return DiseasesResistances.None;
                 case "low":
-                    return DesiasesResistances.Low;
+                    return DiseasesResistances.Low;
                 case "middle":
-                    return DesiasesResistances.Middle;
+                    return DiseasesResistances.Middle;
                 case "high":
-                    return DesiasesResistances.High;
+                    return DiseasesResistances.High;
                 case "complete":
-                    return DesiasesResistances.Complete;
+                    return DiseasesResistances.Complete;
                 default:
                     Console.WriteLine(
                         "Desiases resistances resistance {0} is not valid, to see valid desiases resistances enter command: help filter values desiasesResistances",

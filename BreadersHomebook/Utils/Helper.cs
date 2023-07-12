@@ -33,7 +33,7 @@ namespace BreadersHomebook.Services
             WriteLine("fruitCharacteristics");
             WriteLine("frostResistances");
             WriteLine("pestsResistances");
-            WriteLine("desiasesResistances");
+            WriteLine("diseasesResistances");
             WriteLine("fond");   
         }
 
@@ -91,8 +91,8 @@ namespace BreadersHomebook.Services
                     case "pestsResistances":
                         Write("pests resistance levels of culture. Example: pestsResistances:low,medium");
                         break;
-                    case "desiasesResistances":
-                        Write("disease resistance of culture. Example: desiasesResistances:high,complete");
+                    case "diseasesResistances":
+                        Write("disease resistance of culture. Example: diseasesResistances:high,complete");
                         break;
                     case "fond":
                         Write("fond or farm, where varieties are kept. Example: fond:Fankhauser Apples company");

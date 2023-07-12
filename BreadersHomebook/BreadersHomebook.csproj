@@ -132,7 +132,7 @@
         <Compile Include="Controllers\ConsoleController.cs" />
         <Compile Include="Exceptions\ExitException.cs" />
         <Compile Include="Exceptions\ParsingException.cs" />
-        <Compile Include="Models\Enums\DesiasesResistances.cs" />
+        <Compile Include="Models\Enums\DiseasesResistances.cs" />
         <Compile Include="Models\Enums\FrostResistances.cs" />
         <Compile Include="Models\Enums\FruitCharacteristics.cs" />
         <Compile Include="Models\Enums\PestsResistances.cs" />

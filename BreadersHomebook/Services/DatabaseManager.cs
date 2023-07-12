@@ -52,9 +52,9 @@ namespace BreadersHomebook.Models
             {
                 builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => filterModel.PestsResistances.Contains(work.PestsResistance));
             }
-            if (filterModel.DesiasesResistances != null && filterModel.DesiasesResistances.Count > 0)
+            if (filterModel.DiseasesResistances != null && filterModel.DiseasesResistances.Count > 0)
             {
-                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => filterModel.DesiasesResistances.Contains(work.DesiasesResistance));
+                builder = builder & Builders<SelectionistsWorkModel>.Filter.Where(work => filterModel.DiseasesResistances.Contains(work.DiseasesResistance));
             }
             if (filterModel.Fond != null)
             {
