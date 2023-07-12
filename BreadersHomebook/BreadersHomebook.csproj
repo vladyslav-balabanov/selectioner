@@ -130,15 +130,21 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Controllers\ConsoleController.cs" />
-        <Compile Include="Models\DatabaseManager.cs" />
-        <Compile Include="Models\DesiasesResistances.cs" />
+        <Compile Include="Exceptions\ExitException.cs" />
+        <Compile Include="Exceptions\ParsingException.cs" />
+        <Compile Include="Models\Enums\DesiasesResistances.cs" />
+        <Compile Include="Models\Enums\FrostResistances.cs" />
+        <Compile Include="Models\Enums\FruitCharacteristics.cs" />
+        <Compile Include="Models\Enums\PestsResistances.cs" />
         <Compile Include="Models\FilterModel.cs" />
-        <Compile Include="Models\FrostResistances.cs" />
-        <Compile Include="Models\FruitCharacteristics.cs" />
-        <Compile Include="Models\PestsResistances.cs" />
         <Compile Include="Models\SelectionistsWorkModel.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Services\CommandExecutor.cs" />
+        <Compile Include="Services\DatabaseManager.cs" />
+        <Compile Include="Utils\EnumParser.cs" />
+        <Compile Include="Utils\Helper.cs" />
+        <Compile Include="Utils\Utils.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />

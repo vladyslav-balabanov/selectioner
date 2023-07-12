@@ -9,7 +9,7 @@ namespace BreadersHomebook
     {
         public static void Main(string[] args)
         {
-            ConsoleController consoleController = new ConsoleController(new DatabaseManager());
+            ConsoleController consoleController = new ConsoleController();
             
             consoleController.Run();
         }
