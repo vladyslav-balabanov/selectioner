@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BreadersHomebook.Models.Enums;
 
@@ -13,7 +14,7 @@ namespace BreadersHomebook.Models
             DiseaseResistances = new List<DiseaseResistances>();
             ParentVarieties = new List<string>();
             MinProductivity = 0;
-            MaxProductivity = decimal.MaxValue;
+            MaxProductivity = Int32.MaxValue;
         }
 
         public string VarietyName { get; set; }
