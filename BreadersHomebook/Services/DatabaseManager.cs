@@ -8,11 +8,14 @@ namespace BreadersHomebook.Models
     {
         private const string WorksTableName = "selectionist-works";
         private const string DataBaseName = "selectionist";
+        private const string ConnectionUri = "mongodb+srv://BreadersHomebookReader:Ego7yQmBYuGimwFe@courseworkcluster.mpwgv3z.mongodb.net/?retryWrites=true&w=majority";
         private readonly IMongoCollection<VarietyInfoModel> _worksTable;
 
         public DatabaseManager()
         {
-            var database = new MongoClient().GetDatabase(DataBaseName);
+            var settings = MongoClientSettings.FromConnectionString(ConnectionUri);
+            settings.ServerApi = new ServerApi(ServerApiVersion.V1);
+            var database = new MongoClient(settings).GetDatabase(DataBaseName);
             _worksTable = database.GetCollection<VarietyInfoModel>(WorksTableName);
         }
 
