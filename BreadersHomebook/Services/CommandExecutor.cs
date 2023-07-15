@@ -24,6 +24,7 @@ namespace BreadersHomebook.Services
                 case "show list":
                     var filters = RequestFilters();
                     var list = _databaseManager.GetWorksByFilter(filters);
+                    WriteLine("Found list of {0}", list.Count);
                     if (list.Count == 0) WriteLine("No work with filters {0} has been found", filters);
                     list.ForEach(work => work.Print());
                     break;
@@ -77,27 +78,32 @@ namespace BreadersHomebook.Services
                     WriteLine("Enter filter key. To see list with selected filters enter: find");
 
                     var filterKey = ReadLine();
-                    var key = filterKey == null ? "" : filterKey.Trim();
+                    if (filterKey == null)
+                    {
+                        WriteLine("FilterKey must not be null");
+                        continue;
+                    }
+                    filterKey = filterKey.Trim();
 
-                    if (key.Equals("help"))
+                    if (filterKey.Equals("help"))
                     {
                         _helper.PrintHelpForFilter();
                         continue;
                     }
 
-                    if (key.Equals("help filter keys"))
+                    if (filterKey.Equals("help filter keys"))
                     {
                         _helper.PrintHelpFilterKeys();
                         continue;
                     }
 
-                    if (key.Equals("help filter values"))
+                    if (filterKey.Equals("help filter values"))
                     {
                         _helper.PrintHelpFilterValuesForKey();
                         continue;
                     }
 
-                    switch (key)
+                    switch (filterKey)
                     {
                         case "variety":
 
@@ -146,39 +152,51 @@ namespace BreadersHomebook.Services
 
                             WriteLine("Enter minimum productivity, kg for hectare in one season");
                             var min = ReadLine();
-                            min = min ?? "0";
-                            var minValue = decimal.Parse(min);
-
-                            if (minValue < 0)
+                            if (int.TryParse(min, out var minValue))
                             {
-                                WriteLine("Productivity can't be negative");
+                                if (minValue < 0)
+                                {
+                                    WriteLine("Productivity can't be negative");
+                                    break;
+                                }
+
+                                filters.MinProductivity = minValue;
                                 break;
                             }
 
-                            filters.MinProductivity = minValue;
+                            WriteLine("Productivity must be a positive integer");
                             break;
-
+                        
                         case "maxProductivity":
 
                             WriteLine("Enter maximum productivity, kg for hectare in one season");
                             var max = ReadLine();
-                            max = max ?? decimal.MaxValue.ToString();
-                            var maxValue = decimal.Parse(max);
-
-                            if (maxValue < 0)
+                            if (int.TryParse(max, out var maxValue))
                             {
-                                WriteLine("Productivity can't be negative");
+                                if (maxValue < 0)
+                                {
+                                    WriteLine("Productivity can't be negative");
+                                    break;
+                                }
+
+                                filters.MaxProductivity = maxValue;
                                 break;
                             }
 
-                            filters.MaxProductivity = maxValue;
+                            WriteLine("Productivity must be a positive integer");
                             break;
 
                         case "fruitCharacteristics":
 
                             WriteLine("Enter fruit characteristics");
                             var characteristics = ReadLine();
-                            characteristics = characteristics == null ? "" : characteristics.Trim();
+                            if (characteristics == null)
+                            {
+                                WriteLine("FruitCharacteristics must not be null");
+                                break;
+                            }
+
+                            characteristics = characteristics.Trim();
                             var characteristicsArr = _utils.SeparateStringArr(characteristics);
                             if (characteristicsArr.Length == 0)
                             {
@@ -199,7 +217,13 @@ namespace BreadersHomebook.Services
 
                             WriteLine("Enter frost resistances:");
                             var frostResistances = ReadLine();
-                            frostResistances = frostResistances == null ? "" : frostResistances.Trim();
+                            if (frostResistances == null)
+                            {
+                                WriteLine("FrostResistances can't be null");
+                                break;
+                            }
+
+                            frostResistances = frostResistances.Trim();
                             var frostResistancesArr = _utils.SeparateStringArr(frostResistances);
                             if (frostResistancesArr.Length == 0)
                             {
@@ -223,7 +247,13 @@ namespace BreadersHomebook.Services
                         case "pestsResistances":
                             WriteLine("Enter pests resistances:");
                             var pestsResistances = ReadLine();
-                            pestsResistances = pestsResistances == null ? "" : pestsResistances.Trim();
+                            if (pestsResistances == null)
+                            {
+                                WriteLine("PestsResistances must not be null");
+                                break;
+                            }
+
+                            pestsResistances = pestsResistances.Trim();
                             var pestsResistancesArr = _utils.SeparateStringArr(pestsResistances);
                             if (pestsResistancesArr.Length == 0)
                             {
@@ -242,7 +272,13 @@ namespace BreadersHomebook.Services
                         case "diseaseResistances":
                             WriteLine("Enter disease resistances:");
                             var diseaseResistances = ReadLine();
-                            diseaseResistances = diseaseResistances == null ? "" : diseaseResistances.Trim();
+                            if (diseaseResistances == null)
+                            {
+                                WriteLine("DiseaseResistances can't be null");
+                                break;
+                            }
+
+                            diseaseResistances = diseaseResistances.Trim();
                             var diseaseResistancesArr = _utils.SeparateStringArr(diseaseResistances);
                             if (diseaseResistancesArr.Length == 0)
                             {
@@ -252,8 +288,8 @@ namespace BreadersHomebook.Services
 
                             foreach (var resistance in diseaseResistancesArr)
                             {
-                                var desiaseResistance = _enumParser.ParseDiseaseResistances(resistance);
-                                filters.DiseaseResistances.Add(desiaseResistance);
+                                var diseaseResistance = _enumParser.ParseDiseaseResistances(resistance);
+                                filters.DiseaseResistances.Add(diseaseResistance);
                             }
 
                             break;
@@ -261,7 +297,12 @@ namespace BreadersHomebook.Services
                         case "fond":
                             WriteLine("Enter fond name: ");
                             var fond = ReadLine();
-                            fond = fond == null ? "" : fond.Trim();
+                            if (fond == null)
+                            {
+                                WriteLine("Fond name can't be null");
+                                break;
+                            }
+                            fond = fond.Trim();
                             filters.Fond = fond;
                             break;
 
@@ -273,7 +314,7 @@ namespace BreadersHomebook.Services
                             break;
 
                         default:
-                            WriteLine("Filter name {0} not supported.", key);
+                            WriteLine("Filter name {0} not supported.", filterKey);
                             break;
                     }
                 }

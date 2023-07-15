@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
 using BreadersHomebook.Models.Enums;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace BreadersHomebook.Models
 {
     public class VarietyInfoModel
     {
+        [BsonId]
         public int Id { get; set; }
         public string NameOfCultureVariety { get; set; }
         public string Author { get; set; }
         public List<string> ParentVarieties { get; set; }
-        public decimal Productivity { get; set; }
+        public int Productivity { get; set; }
         public List<FruitCharacteristics> FruitCharacteristics { get; set; }
         public FrostResistances FrostResistance { get; set; }
         public PestsResistances PestsResistance { get; set; }
