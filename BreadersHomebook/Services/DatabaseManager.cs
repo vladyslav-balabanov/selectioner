@@ -1,14 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
+using BreadersHomebook.Models;
 using MongoDB.Driver;
 
-namespace BreadersHomebook.Models
+namespace BreadersHomebook.Services
 {
     public class DatabaseManager
     {
         private const string WorksTableName = "selectionist-works";
         private const string DataBaseName = "selectionist";
-        private const string ConnectionUri = "mongodb+srv://BreadersHomebookReader:Ego7yQmBYuGimwFe@courseworkcluster.mpwgv3z.mongodb.net/?retryWrites=true&w=majority";
+
+        private const string ConnectionUri =
+            "mongodb+srv://BreadersHomebookReader:Ego7yQmBYuGimwFe@courseworkcluster.mpwgv3z.mongodb.net/?retryWrites=true&w=majority";
+
         private readonly IMongoCollection<VarietyInfoModel> _worksTable;
 
         public DatabaseManager()

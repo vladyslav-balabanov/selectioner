@@ -1,4 +1,4 @@
-namespace BreadersHomebook.Services
+namespace BreadersHomebook.Utils
 {
     public class Utils
     {

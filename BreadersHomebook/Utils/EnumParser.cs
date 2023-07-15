@@ -1,7 +1,8 @@
 using System;
-using BreadersHomebook.Models;
+using BreadersHomebook.Exceptions;
+using BreadersHomebook.Models.Enums;
 
-namespace BreadersHomebook.Services
+namespace BreadersHomebook.Utils
 {
     public class EnumParser
     {

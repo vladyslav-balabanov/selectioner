@@ -1,4 +1,4 @@
-namespace BreadersHomebook.Models
+namespace BreadersHomebook.Models.Enums
 {
     public enum PestsResistances
     {

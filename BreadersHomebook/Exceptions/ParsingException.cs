@@ -1,6 +1,6 @@
 using System;
 
-namespace BreadersHomebook
+namespace BreadersHomebook.Exceptions
 {
     public class ParsingException : Exception
     {

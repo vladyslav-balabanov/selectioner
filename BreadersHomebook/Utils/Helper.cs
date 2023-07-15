@@ -1,6 +1,7 @@
+using BreadersHomebook.Exceptions;
 using static System.Console;
 
-namespace BreadersHomebook.Services
+namespace BreadersHomebook.Utils
 {
     public class Helper
     {

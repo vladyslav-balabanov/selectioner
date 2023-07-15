@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using BreadersHomebook.Exceptions;
 using BreadersHomebook.Models;
+using BreadersHomebook.Utils;
 using static System.Console;
 
 namespace BreadersHomebook.Services
@@ -9,7 +11,7 @@ namespace BreadersHomebook.Services
         private readonly DatabaseManager _databaseManager = new DatabaseManager();
         private readonly EnumParser _enumParser = new EnumParser();
         private readonly Helper _helper = new Helper();
-        private readonly Utils _utils = new Utils();
+        private readonly Utils.Utils _utils = new Utils.Utils();
 
         public void Execute(string command)
         {

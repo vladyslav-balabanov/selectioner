@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BreadersHomebook.Models.Enums;
 
 namespace BreadersHomebook.Models
 {
