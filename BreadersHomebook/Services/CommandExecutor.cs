@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BreadersHomebook.Exceptions;
 using BreadersHomebook.Models;
@@ -71,206 +72,218 @@ namespace BreadersHomebook.Services
             var isAddingFilters = true;
             while (isAddingFilters)
             {
-                WriteLine("Enter filter key. To see list with selected filters enter: find");
-                var filterKey = ReadLine();
-                var key = filterKey == null ? "" : filterKey.Trim();
-
-                if (key.Equals("help"))
+                try
                 {
-                    _helper.PrintHelpForFilter();
-                    continue;
-                }
+                    WriteLine("Enter filter key. To see list with selected filters enter: find");
 
-                if (key.Equals("help filter keys"))
-                {
-                    _helper.PrintHelpFilterKeys();
-                    continue;
-                }
+                    var filterKey = ReadLine();
+                    var key = filterKey == null ? "" : filterKey.Trim();
 
-                if (key.Equals("help filter values"))
-                {
-                    _helper.PrintHelpFilterValuesForKey();
-                    continue;
-                }
+                    if (key.Equals("help"))
+                    {
+                        _helper.PrintHelpForFilter();
+                        continue;
+                    }
 
-                switch (key)
-                {
-                    case "variety":
+                    if (key.Equals("help filter keys"))
+                    {
+                        _helper.PrintHelpFilterKeys();
+                        continue;
+                    }
 
-                        WriteLine("Enter culture variety name:");
-                        var variety = ReadLine();
+                    if (key.Equals("help filter values"))
+                    {
+                        _helper.PrintHelpFilterValuesForKey();
+                        continue;
+                    }
 
-                        if (variety == null)
-                        {
-                            WriteLine("Variety name can't be empty");
-                            break;
-                        }
+                    switch (key)
+                    {
+                        case "variety":
 
-                        filters.VarietyName = variety.Trim();
-                        break;
+                            WriteLine("Enter culture variety name:");
+                            var variety = ReadLine();
 
-                    case "author":
-
-                        WriteLine("Enter author name:");
-                        var author = ReadLine();
-
-                        if (author == null)
-                        {
-                            WriteLine("Author name can't be empty");
-                            break;
-                        }
-
-                        filters.Author = author.Trim();
-                        break;
-
-                    case "parents":
-
-                        WriteLine("Enter variety parents");
-                        var parents = ReadLine();
-                        var parentsArr = _utils.SeparateStringArr(parents);
-
-                        if (parentsArr.Length == 0)
-                        {
-                            WriteLine("Filter must have at least one parent variety");
-                            break;
-                        }
-
-                        filters.ParentVarieties = new List<string>(parentsArr);
-                        break;
-
-                    case "minProductivity":
-
-                        WriteLine("Enter minimum productivity, kg for plant in one season");
-                        var min = ReadLine();
-                        min = min ?? "0";
-                        var minValue = decimal.Parse(min);
-
-                        if (minValue < 0)
-                        {
-                            WriteLine("Productivity can't be negative");
-                            break;
-                        }
-
-                        filters.MinProductivity = minValue;
-                        break;
-
-                    case "maxProductivity":
-
-                        WriteLine("Enter maximum productivity, kg for plant in one season");
-                        var max = ReadLine();
-                        max = max ?? decimal.MaxValue.ToString();
-                        var maxValue = decimal.Parse(max);
-
-                        if (maxValue < 0)
-                        {
-                            WriteLine("Productivity can't be negative");
-                            break;
-                        }
-
-                        filters.MaxProductivity = maxValue;
-                        break;
-
-                    case "fruitCharacteristics":
-
-                        WriteLine("Enter fruit characteristics");
-                        var characteristics = ReadLine();
-                        characteristics = characteristics == null ? "" : characteristics.Trim();
-                        var characteristicsArr = _utils.SeparateStringArr(characteristics);
-                        if (characteristicsArr.Length == 0)
-                        {
-                            WriteLine("Filter must have at least one characteristic");
-                            break;
-                        }
-
-                        foreach (var characteristic in characteristicsArr)
-                        {
-                            var fruitCharacteristic =
-                                _enumParser.ParseFruitCharacteristics(characteristic.Trim());
-                            filters.FruitCharacteristics.Add(fruitCharacteristic);
-                        }
-
-                        break;
-
-                    case "frostResistances":
-
-                        WriteLine("Enter frost resistances:");
-                        var frostResistances = ReadLine();
-                        frostResistances = frostResistances == null ? "" : frostResistances.Trim();
-                        var frostResistancesArr = _utils.SeparateStringArr(frostResistances);
-                        if (frostResistancesArr.Length == 0)
-                        {
-                            WriteLine("Filter must have at list one element");
-                            break;
-                        }
-
-                        foreach (var resistance in frostResistancesArr)
-                            try
+                            if (variety == null)
                             {
-                                var frostResistance = _enumParser.ParseFrostResistances(resistance);
-                                filters.FrostResistances.Add(frostResistance);
-                            }
-                            catch (ParsingException e)
-                            {
-                                WriteLine(e.Message);
+                                WriteLine("Variety name can't be empty");
+                                break;
                             }
 
-                        break;
-
-                    case "pestsResistances":
-                        WriteLine("Enter pests resistances:");
-                        var pestsResistances = ReadLine();
-                        pestsResistances = pestsResistances == null ? "" : pestsResistances.Trim();
-                        var pestsResistancesArr = _utils.SeparateStringArr(pestsResistances);
-                        if (pestsResistancesArr.Length == 0)
-                        {
-                            WriteLine("Filter must have at list one element");
+                            filters.VarietyName = variety.Trim();
                             break;
-                        }
 
-                        foreach (var resistance in pestsResistancesArr)
-                        {
-                            var pestsResistance = _enumParser.ParsePestsResistances(resistance);
-                            filters.PestsResistances.Add(pestsResistance);
-                        }
+                        case "author":
 
-                        break;
+                            WriteLine("Enter author name:");
+                            var author = ReadLine();
 
-                    case "diseaseResistances":
-                        WriteLine("Enter disease resistances:");
-                        var diseaseResistances = ReadLine();
-                        diseaseResistances = diseaseResistances == null ? "" : diseaseResistances.Trim();
-                        var diseaseResistancesArr = _utils.SeparateStringArr(diseaseResistances);
-                        if (diseaseResistancesArr.Length == 0)
-                        {
-                            WriteLine("Filter must have at list one element");
+                            if (author == null)
+                            {
+                                WriteLine("Author name can't be empty");
+                                break;
+                            }
+
+                            filters.Author = author.Trim();
                             break;
-                        }
 
-                        foreach (var resistance in diseaseResistancesArr)
-                        {
-                            var desiaseResistance = _enumParser.ParseDiseaseResistances(resistance);
-                            filters.DiseaseResistances.Add(desiaseResistance);
-                        }
+                        case "parents":
 
-                        break;
+                            WriteLine("Enter variety parents");
+                            var parents = ReadLine();
+                            var parentsArr = _utils.SeparateStringArr(parents);
 
-                    case "fond":
-                        WriteLine("Enter fond name: ");
-                        var fond = ReadLine();
-                        fond = fond == null ? "" : fond.Trim();
-                        filters.Fond = fond;
-                        break;
+                            if (parentsArr.Length == 0)
+                            {
+                                WriteLine("Filter must have at least one parent variety");
+                                break;
+                            }
 
-                    case "exit":
-                        throw new ExitException();
+                            filters.ParentVarieties = new List<string>(parentsArr);
+                            break;
 
-                    case "find":
-                        isAddingFilters = false;
-                        break;
+                        case "minProductivity":
 
-                    default:
-                        WriteLine("Filter name {0} not supported.", key);
-                        break;
+                            WriteLine("Enter minimum productivity, kg for hectare in one season");
+                            var min = ReadLine();
+                            min = min ?? "0";
+                            var minValue = decimal.Parse(min);
+
+                            if (minValue < 0)
+                            {
+                                WriteLine("Productivity can't be negative");
+                                break;
+                            }
+
+                            filters.MinProductivity = minValue;
+                            break;
+
+                        case "maxProductivity":
+
+                            WriteLine("Enter maximum productivity, kg for plant in one season");
+                            var max = ReadLine();
+                            max = max ?? decimal.MaxValue.ToString();
+                            var maxValue = decimal.Parse(max);
+
+                            if (maxValue < 0)
+                            {
+                                WriteLine("Productivity can't be negative");
+                                break;
+                            }
+
+                            filters.MaxProductivity = maxValue;
+                            break;
+
+                        case "fruitCharacteristics":
+
+                            WriteLine("Enter fruit characteristics");
+                            var characteristics = ReadLine();
+                            characteristics = characteristics == null ? "" : characteristics.Trim();
+                            var characteristicsArr = _utils.SeparateStringArr(characteristics);
+                            if (characteristicsArr.Length == 0)
+                            {
+                                WriteLine("Filter must have at least one characteristic");
+                                break;
+                            }
+
+                            foreach (var characteristic in characteristicsArr)
+                            {
+                                var fruitCharacteristic =
+                                    _enumParser.ParseFruitCharacteristics(characteristic.Trim());
+                                filters.FruitCharacteristics.Add(fruitCharacteristic);
+                            }
+
+                            break;
+
+                        case "frostResistances":
+
+                            WriteLine("Enter frost resistances:");
+                            var frostResistances = ReadLine();
+                            frostResistances = frostResistances == null ? "" : frostResistances.Trim();
+                            var frostResistancesArr = _utils.SeparateStringArr(frostResistances);
+                            if (frostResistancesArr.Length == 0)
+                            {
+                                WriteLine("Filter must have at list one element");
+                                break;
+                            }
+
+                            foreach (var resistance in frostResistancesArr)
+                                try
+                                {
+                                    var frostResistance = _enumParser.ParseFrostResistances(resistance);
+                                    filters.FrostResistances.Add(frostResistance);
+                                }
+                                catch (ParsingException e)
+                                {
+                                    WriteLine(e.Message);
+                                }
+
+                            break;
+
+                        case "pestsResistances":
+                            WriteLine("Enter pests resistances:");
+                            var pestsResistances = ReadLine();
+                            pestsResistances = pestsResistances == null ? "" : pestsResistances.Trim();
+                            var pestsResistancesArr = _utils.SeparateStringArr(pestsResistances);
+                            if (pestsResistancesArr.Length == 0)
+                            {
+                                WriteLine("Filter must have at list one element");
+                                break;
+                            }
+
+                            foreach (var resistance in pestsResistancesArr)
+                            {
+                                var pestsResistance = _enumParser.ParsePestsResistances(resistance);
+                                filters.PestsResistances.Add(pestsResistance);
+                            }
+
+                            break;
+
+                        case "diseaseResistances":
+                            WriteLine("Enter disease resistances:");
+                            var diseaseResistances = ReadLine();
+                            diseaseResistances = diseaseResistances == null ? "" : diseaseResistances.Trim();
+                            var diseaseResistancesArr = _utils.SeparateStringArr(diseaseResistances);
+                            if (diseaseResistancesArr.Length == 0)
+                            {
+                                WriteLine("Filter must have at list one element");
+                                break;
+                            }
+
+                            foreach (var resistance in diseaseResistancesArr)
+                            {
+                                var desiaseResistance = _enumParser.ParseDiseaseResistances(resistance);
+                                filters.DiseaseResistances.Add(desiaseResistance);
+                            }
+
+                            break;
+
+                        case "fond":
+                            WriteLine("Enter fond name: ");
+                            var fond = ReadLine();
+                            fond = fond == null ? "" : fond.Trim();
+                            filters.Fond = fond;
+                            break;
+
+                        case "exit":
+                            throw new ExitException();
+
+                        case "find":
+                            isAddingFilters = false;
+                            break;
+
+                        default:
+                            WriteLine("Filter name {0} not supported.", key);
+                            break;
+                    }
+                }
+                catch (ParsingException parsingException)
+                {
+                    WriteLine(parsingException.Message + " Make sure that it is correct and try again.");
+                }
+                catch (Exception unexpectedException)
+                {
+                    WriteLine("Unexpected exception occured, caused by " + unexpectedException.Message + ". Please try again.");
                 }
             }
 
