@@ -160,7 +160,7 @@ namespace BreadersHomebook.Services
 
                         case "maxProductivity":
 
-                            WriteLine("Enter maximum productivity, kg for plant in one season");
+                            WriteLine("Enter maximum productivity, kg for hectare in one season");
                             var max = ReadLine();
                             max = max ?? decimal.MaxValue.ToString();
                             var maxValue = decimal.Parse(max);
