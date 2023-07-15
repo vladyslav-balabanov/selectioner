@@ -76,10 +76,10 @@ namespace BreadersHomebook.Utils
                         "parent varieties of culture. Example: parents:Kidd's Orange Red apple tree,Golden Delicious apple tree");
                     break;
                 case "minProductivity":
-                    Write("minimum productivity of culture in kg per tree per season. Example: minProductivity:3.45");
+                    Write("minimum productivity of optimally planted culture in kg for hectare per season. Example: minProductivity:3.45");
                     break;
                 case "maxProductivity":
-                    Write("maximum productivity of culture in kg per tree per season. Example: maxProductivity:257.07");
+                    Write("maximum productivity of optimally planted culture in kg for hectare per season. Example: maxProductivity:257.07");
                     break;
                 case "fruitCharacteristics":
                     Write(
