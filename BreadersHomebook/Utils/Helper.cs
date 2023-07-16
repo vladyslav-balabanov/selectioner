@@ -12,6 +12,7 @@ namespace BreadersHomebook.Utils
             WriteLine("show list - prints list of breeder's works that match filters");
             WriteLine("help filter keys - prints list of filter keys");
             WriteLine("help filter values - prints list of filter values for entered key");
+            WriteLine("show article - prints article for work of entered id");
             WriteLine("exit - exits program");
         }
 

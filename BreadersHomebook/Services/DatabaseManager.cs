@@ -9,6 +9,7 @@ namespace BreadersHomebook.Services
     public class DatabaseManager
     {
         private const string WorksTableName = "selectionist-works";
+        private const string ArticleTableName = "selectionist-article";
         private const string DataBaseName = "selectionist";
         private const string User = "BreadersHomebookReader";
         private const string Password = "Ego7yQmBYuGimwFe";
@@ -17,6 +18,7 @@ namespace BreadersHomebook.Services
             "mongodb+srv://" + User + ":" + Password + "@courseworkcluster.mpwgv3z.mongodb.net/?retryWrites=true&w=majority";
 
         private readonly IMongoCollection<VarietyInfoModel> _worksTable;
+        private readonly IMongoCollection<ArticleModel> _articleTable;
 
         public DatabaseManager()
         {
@@ -24,6 +26,7 @@ namespace BreadersHomebook.Services
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             var database = new MongoClient(settings).GetDatabase(DataBaseName);
             _worksTable = database.GetCollection<VarietyInfoModel>(WorksTableName);
+            _articleTable = database.GetCollection<ArticleModel>(ArticleTableName);
         }
 
         public List<VarietyInfoModel> GetAllWorks()
@@ -112,6 +115,12 @@ namespace BreadersHomebook.Services
             if (works.Any())
                 return works.Max(bus => bus.Id) + 1;
             return 1;
+        }
+
+        public ArticleModel GetArticleById(int workId)
+        {
+            var filter = Builders<ArticleModel>.Filter.Eq(_ => _.Id, workId);
+            return _articleTable.Find(filter).FirstOrDefault();
         }
     }
 }

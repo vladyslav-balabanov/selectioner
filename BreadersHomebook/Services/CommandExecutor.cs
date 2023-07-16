@@ -39,6 +39,22 @@ namespace BreadersHomebook.Services
                 case "help filter values":
                     _helper.PrintHelpFilterValuesForKey();
                     break;
+                case "show article":
+                    WriteLine("Enter Id of sort that you are interested in");
+                    string input = ReadLine();
+                    if (int.TryParse(input, out int id))
+                    {
+                        ArticleModel articleById = _databaseManager.GetArticleById(id);
+                        if (articleById == null)
+                        {
+                            WriteLine("Article for sort with id {0} was not found", id);
+                            break;
+                        }
+                        articleById.Print();
+                        break;
+                    }
+                    WriteLine("Id must be an integer");
+                    break;
                 default:
                     WriteLine("Entered unknown command, enter help to see supported commands");
                     break;
